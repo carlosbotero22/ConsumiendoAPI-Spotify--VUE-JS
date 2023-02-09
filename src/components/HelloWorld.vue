@@ -8,11 +8,36 @@
     <h2 class="m-4">Lo más recientes lanzamientos</h2>
   </div>
   
-
+  <div v-for="value in result" :key="value.id">
+     {{ value.name }}
+  </div>
 </template>
 
 <script>
+import axios from "axios";
 
+export default {
+  data: () => ({
+    result: []
+  }),
+  created() {
+    const config = {
+      method: 'get',
+      url: 'https://api.spotify.com/v1/browse/new-releases',
+      headers: {
+        'Authorization': 'Bearer BQCBMcrW_IqeYmDiFXloClhnE5hIO7uhuSS4pWsjBIX1Uty9iMpnMC8PHve3L9B4-pu1qq2MwiB40RNAPMQN_xcQvls4BZp7aWcltFaXeDm5HizcpnOy'
+      }
+    };
+    axios(config)
+      .then(function (response) {
+        console.log(response)
+        this.result = response.data.albums.items
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
+};
 </script>
 
 
