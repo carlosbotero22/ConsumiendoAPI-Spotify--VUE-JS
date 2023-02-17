@@ -3,8 +3,7 @@
 *****************************
 
 
-<template>
-  <!-- barra de navegacion -->
+<template><!-- barra de navegacion -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <h4 class="navbar-nav me-auto mb-2 mb-lg-0">SPO<span style="color: green;">TIFY</span></h4>
@@ -49,18 +48,16 @@
             <a href="https://open.spotify.com/collection/tracks" class="btn btn-primary">Reproducir</a>
           </div>
         </div>
-
-      </template>
+      </template>   
     </div>
-
   </div>
-
+  
 </template>
 
 
 
 <script>
-// consumiendo API REST y filtrando info...
+// consumiendo API REST y filtrando información
 import axios from "axios";
 
 export default {
@@ -74,7 +71,7 @@ export default {
   },
   methods: {
     mostrarDatos: function () {
-      this.resultTmp = this.result.filter((item) => 
+      this.resultTmp = this.result.filter((item) =>
         item.name.toLowerCase().includes(this.buscar.toLowerCase()));
     },
     changeResult: function (result) {
@@ -86,7 +83,7 @@ export default {
         name: this.name,
         method: "get",
         url: "https://api.spotify.com/v1/browse/new-releases",
-        headers: { Authorization: "Bearer BQAv6eM_HCsJLCiE2pdoCVSp1nYA4v7vwJvLQmL1TezN7VOp9LwcCrbmNm1pZ_EwdjP8XxEHVqGB7ZWiUmDIXjwziFTGuKeCC55NG4_ZUpEVResKIy-F"}
+        headers: { Authorization: "Bearer BQAv6eM_HCsJLCiE2pdoCVSp1nYA4v7vwJvLQmL1TezN7VOp9LwcCrbmNm1pZ_EwdjP8XxEHVqGB7ZWiUmDIXjwziFTGuKeCC55NG4_ZUpEVResKIy-F" }
       };
       try {
         const response = await axios(config);

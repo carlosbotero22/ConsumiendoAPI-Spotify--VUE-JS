@@ -1,5 +1,5 @@
 # spotify
-Consumiendo Api rest de spotify y filtrando información 
+Consumiendo Api Rest de spotify y filtrando información 
 ## Project setup
 ```
 npm install
