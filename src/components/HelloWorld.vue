@@ -2,6 +2,7 @@
 ****** CARLOS BOTERO ********
 *****************************
 
+
 <template>
   <!-- barra de navegacion -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -37,7 +38,7 @@
     <h2 class="m-4">Lo más recientes lanzamientos</h2>
 
     <div class="row">
-      <template class="info" v-for="item of result" v-bind:key="item.id">
+      <template class="info" v-for="item of resultTmp" v-bind:key="item.id">
         <div class="card col-sm-3">
           <img class="card-img-top"
             src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2021/04/spotify-2318979.jpg?tf=3840x"
@@ -66,39 +67,32 @@ export default {
   data() {
     return {
       result: [],
-      buscar: ''
+      resultTmp: [],
+      buscar: '',
     };
   },
   methods: {
     mostrarDatos: function () {
-      // console.log('funciona....')
-      console.log(this.buscar)
-
+      this.resultTmp = this.result.filter((item) => 
+        item.name.toLowerCase().includes(this.buscar.toLowerCase()));
+    },
+    changeResult: function (result) {
+      this.result = result;
+      this.resultTmp = result;
     },
     async fetch() {
       const config = {
         name: this.name,
         method: "get",
         url: "https://api.spotify.com/v1/browse/new-releases",
-        headers: {
-          Authorization:
-            "Bearer BQAJDf2nsUnroYAKfvXvD0R4aZuc6gGMA1AXdc4_L8LGn3BqtW0LSIhsbAfHWhQbq1diO7M-oiyLMqWJZXZ776hTPTUVrPVl6E3kAbNNLbYnX8qTqcu2",
-        }
+        headers: { Authorization: "Bearer BQAv6eM_HCsJLCiE2pdoCVSp1nYA4v7vwJvLQmL1TezN7VOp9LwcCrbmNm1pZ_EwdjP8XxEHVqGB7ZWiUmDIXjwziFTGuKeCC55NG4_ZUpEVResKIy-F"}
       };
-      let data = this.result;
-
-      const response = await axios(config)
-        .then(function ({
-          data: {
-            albums: { items }
-          },
-        }) {
-          return items;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      this.result = response;
+      try {
+        const response = await axios(config);
+        this.changeResult(response.data.albums.items);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   mounted() {
